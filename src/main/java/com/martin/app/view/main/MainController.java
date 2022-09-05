@@ -1,6 +1,7 @@
 package com.martin.app.view.main;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 
 /**
  * @since       2022.09.06
@@ -9,4 +10,9 @@ import org.springframework.stereotype.Controller;
  **********************************************************************************************************************/
 @Controller
 public class MainController {
+
+	@GetMapping
+	public String main() {
+		return "";
+	}
 }
