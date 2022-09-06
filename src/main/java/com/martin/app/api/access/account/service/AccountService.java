@@ -1,5 +1,6 @@
 package com.martin.app.api.access.account.service;
 
+import com.martin.app.api.access.account.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,4 +15,9 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class AccountService {
 
+	private final AccountRepository accountRepository;
+
+	public void test() {
+		accountRepository.findfindfindfind();
+	}
 }

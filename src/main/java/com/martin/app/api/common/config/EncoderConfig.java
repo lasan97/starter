@@ -1,25 +1,19 @@
 package com.martin.app.api.common.config;
 
-import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**
  * @since       2022.09.06
  * @author      martin
- * @description query dsl config
+ * @description encoder config
  **********************************************************************************************************************/
 @Configuration
-public class QueryDslConfig {
-
-	@PersistenceContext
-	private EntityManager entityManager;
+public class EncoderConfig {
 
 	@Bean
-	public JPAQueryFactory jPAQueryFactory() {
-		return new JPAQueryFactory(entityManager);
+	public BCryptPasswordEncoder passwordEncoder(){
+		return new BCryptPasswordEncoder();
 	}
 }
