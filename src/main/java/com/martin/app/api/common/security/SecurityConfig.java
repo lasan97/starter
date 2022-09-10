@@ -2,8 +2,6 @@ package com.martin.app.api.common.security;
 
 import com.martin.app.api.access.account.service.AccountService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
-import org.springframework.boot.autoconfigure.security.ConditionalOnDefaultWebSecurity;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,9 +17,9 @@ import org.springframework.security.web.SecurityFilterChain;
  **********************************************************************************************************************/
 @EnableWebSecurity
 @RequiredArgsConstructor
-@Configuration(proxyBeanMethods = false)
-@ConditionalOnDefaultWebSecurity
-@ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
+@Configuration
+//@ConditionalOnDefaultWebSecurity
+//@ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
 public class SecurityConfig {
 
 	private final AccountService accountService;
@@ -29,20 +27,26 @@ public class SecurityConfig {
 	@Bean
 	@Order(SecurityProperties.BASIC_AUTH_ORDER)
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		http
-				.antMatcher("/**")
-				.authorizeRequests()
-				.antMatchers("/user/**").authenticated()
-				.antMatchers("/manager/**").access("hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')")
-				.antMatchers("/admin/**").hasRole("ROLE_ADMIN")
-				.anyRequest().permitAll();
+
+		// resource 관리
+		http.authorizeRequests()
+				.antMatchers("/*").permitAll()
+				.antMatchers("/api/**").authenticated()
+				.antMatchers("/admin/**").hasAnyRole("ADMIN")
+				.anyRequest().authenticated();
+
+		// FormLogin 사용 설정
+		http.formLogin().and().logout();
+
+		// Http Basic 사용 설정
+		http.httpBasic();
+
+//		http.userDetailsService(accountService);
+//				.antMatchers("/manager/**").access("hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')")
+
 //				.csrf().disable()
 //				.headers().frameOptions().disable()
-//				.and()
-//				.authorizeRequests()
-//				.antMatchers("/", "/css/**", "/images/**", "/js/**", "/h2-console/**").permitAll()
-//				.antMatchers("/api/**").hasRole("Role_USER")
-//				.anyRequest().authenticated()
+
 //				.and()
 //				.logout()
 //				.logoutSuccessUrl("/")

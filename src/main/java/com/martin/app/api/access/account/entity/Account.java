@@ -4,8 +4,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import com.martin.app.api.common.entity.BaseEntity;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 /**
  * @since       2022.09.06
@@ -34,4 +37,14 @@ public class Account extends BaseEntity {
 	@Getter
 	@Column(nullable=false)
 	private String password;
+
+	public Account(String name, String email, String password) {
+		this.name = name;
+		this.email = email;
+		this.password = password;
+	}
+
+	public void passwordEncode(PasswordEncoder encoder) {
+		this.password = encoder.encode(this.password);
+	}
 }

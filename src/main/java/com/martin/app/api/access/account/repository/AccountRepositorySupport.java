@@ -10,6 +10,4 @@ import java.util.List;
  * @description account repository support
  **********************************************************************************************************************/
 public interface AccountRepositorySupport {
-
-	List<Account> findfindfindfind();
 }

@@ -21,13 +21,9 @@ import java.time.LocalDateTime;
  * @description base
  **********************************************************************************************************************/
 @Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@SuperBuilder
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public class BaseEntity implements Serializable {
+public class BaseEntity {
 
 	@CreatedDate
 	@Column(name="created_at", updatable=false)

@@ -5,7 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
 
 /**
  * @since       2022.09.06
@@ -15,4 +14,5 @@ import java.util.List;
 @Repository
 public interface AccountRepository extends JpaRepository<Account, Long>, QuerydslPredicateExecutor<Account>, AccountRepositorySupport {
 
+	Account findByName(String name);
 }
